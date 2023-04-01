@@ -9,16 +9,9 @@ class Sala(tk.Tk):
         self.resizable(0, 0)
         self.columnconfigure(1, weight=2)
         
-        #self.img = tk.PhotoImage(file = r"GUI/source/img/cuadrado.png")
-        #self.img2 = tk.PhotoImage(file = r"GUI/source/img/cuadrado_relleno.png")
-        #self.img_pantalla = tk.PhotoImage(file = r"GUI/source/img/pantalla.png")
-        
         self.show()
 
     def show(self):
-
-        #butaca = tk.Label(self.entrada_frame, image=self.img_pantalla)
-        #butaca.grid(row=0, column=0, ipady=10)
 
         self.frame = tk.Frame(self, width=300, height=350)
         self.frame.grid(row=0, column=0)
