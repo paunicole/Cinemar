@@ -53,20 +53,20 @@ class FuncionAdministrador(tk.Frame):
 
     def widgets_config(self):
         #Titulo
-        self.Cab_principal.config(text = '   Funciones   ', foreground = '#FFFFFF', font = ('Segoe UI Black', 36), background = '#002B40', justify = 'center')
+        self.Cab_principal.config(text='Funciones', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='red', justify='center')
         #Tabla
         self.Tabla_config()
         #Editar
-        self.Edit_label.config(text = 'Editar Función', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Edit_input.config(width = 5, state = 'readonly')
-        self.Edit_bott.config(text = 'Editar', command = self.Editar)
+        self.Edit_label.config(text='Editar Función', foreground = '#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Edit_input.config(width=5, state='readonly')
+        self.Edit_bott.config(text='Editar', command=self.Editar)
         #Añadir
-        self.Add_label.config(text = 'Agregar Función', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Add_bott.config(text = 'Agregar', command = self.Agregar)
+        self.Add_label.config(text='Agregar Función', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Add_bott.config(text='Agregar', command=self.Agregar)
         #Eliminar
-        self.Elim_label.config(text = 'Eliminar Función', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Elim_input.config(width = 5, state = 'readonly')
-        self.Elim_bott.config(text = 'Eliminar', command = self.Eliminar)
+        self.Elim_label.config(text='Eliminar Función', foreground='#FFFFFF', font = ('Segoe UI Black', 18), background='black')
+        self.Elim_input.config(width=5, state='readonly')
+        self.Elim_bott.config(text='Eliminar', command=self.Eliminar)
 
     def input_fill(self):
         self.Tabla.delete(*self.Tabla.get_children())

@@ -45,22 +45,22 @@ class SalaAdministrador(tk.Frame):
     
     def widgets_config(self):
         #Titulo
-        self.Cab_principal.config(text = '     Salas     ', foreground = '#FFFFFF', font = ('Segoe UI Black', 36), background = '#002B40')
+        self.Cab_principal.config(text='Salas', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='red')
         #Tabla
         self.Tabla_config()
         #Eliminar
-        self.Elim_label.config(text = 'Elimina una sala', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Elim_input.config(width = 5, state = 'readonly')
-        self.Elim_bott.config(text = 'Eliminar', command = self.Eliminar)
+        self.Elim_label.config(text='Elimina una sala', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='red')
+        self.Elim_input.config(width=5, state='readonly')
+        self.Elim_bott.config(text='Eliminar', command=self.Eliminar)
         #Añadir
-        self.Add_label.config(text = 'Agregar una nueva sala', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.NumSala_label.config(text = 'Sala', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.NumSala_input.config(width = 6)
-        self.Butac_label.config(text = 'Butacas', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Butac_input.config(width = 6)
-        self.Tipo_label.config(text = 'Tipo', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Tipo_input.config(width = 3, state = 'readonly', values = ['2D', '3D'])
-        self.Add_bott.config(text = 'Agregar', command = self.Agregar)
+        self.Add_label.config(text='Agregar una nueva sala', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='red')
+        self.NumSala_label.config(text='Sala', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.NumSala_input.config(width=6)
+        self.Butac_label.config(text='Butacas', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Butac_input.config(width=6)
+        self.Tipo_label.config(text='Tipo', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Tipo_input.config(width=3, state='readonly', values=['2D', '3D'])
+        self.Add_bott.config(text='Agregar', command=self.Agregar)
 
     def input_fill(self):
         self.Tabla.delete(*self.Tabla.get_children())

@@ -141,11 +141,11 @@ class ReservaAdministrador(tk.Frame):
         self.tabla.heading('#6', text='Precio', anchor='center')
 
     def widgets_config(self):
-        self.cabecera.config(text='Reservas pendientes', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='#002B40')
+        self.cabecera.config(text='Reservas pendientes', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='red')
         
         self.tabla_config()
         
-        self.busqueda_label.config(text='Buscar reserva por DNI', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='#056595')
+        self.busqueda_label.config(text='Buscar reserva por DNI', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.busqueda_input.config(width=15)
         self.button_buscar.config(text='Buscar', command=self.buscar_tickets)
 

@@ -39,16 +39,16 @@ class DescuentoAdministrador(tk.Frame):
     
     def widgets_config(self):
         #Titulo
-        self.Cab_principal.config(text = '   Descuentos   ', foreground = '#FFFFFF', font = ('Segoe UI Black', 36), background = '#002B40')
+        self.Cab_principal.config(text='Descuentos', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='red')
         #Tabla
         self.Tabla_config()
         #Editar
-        self.Edit_label.config(text = 'Edita un descuento', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Dia_label.config(text = 'Dia', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Dia_input.config(width = 10, state = 'readonly')
-        self.Porc_label.config(text = 'Porcentaje', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Porc_input.config(width = 13)
-        self.Editar_bott.config(text = 'Editar', command = self.Editar)
+        self.Edit_label.config(text='Edita un descuento', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Dia_label.config(text='Dia', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Dia_input.config(width=10, state='readonly')
+        self.Porc_label.config(text='Porcentaje', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Porc_input.config(width=13)
+        self.Editar_bott.config(text='Editar', command=self.Editar)
 
     def input_fill(self):
         self.Tabla.delete(*self.Tabla.get_children())

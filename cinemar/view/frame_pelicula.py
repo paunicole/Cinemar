@@ -85,7 +85,7 @@ class PeliculaCliente(tk.Frame):
 
 
 class PeliculaAdministrador(tk.Frame):
-    def __init__(self, ventana_padre = None, master = None, base_datos = None):
+    def __init__(self, ventana_padre=None, master=None, base_datos=None):
         tk.Frame.__init__(self, master)
         self.master = master
         self.ventana_padre = ventana_padre
@@ -130,20 +130,20 @@ class PeliculaAdministrador(tk.Frame):
 
     def widgets_config(self):
         #Titulo
-        self.cabecera.config(text = 'Peliculas Disponibles', foreground = '#FFFFFF', font = ('Segoe UI Black', 36), background = '#002B40', justify = 'center')
+        self.cabecera.config(text='Peliculas Disponibles', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='red', justify='center')
         #Tabla
         self.tabla_config()
         #Detalles
-        self.label_info.config(text = 'Selecciona una pelicula\npara ver más detalles', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595', justify = 'center')
-        self.input_info.config(width = 5, state = 'readonly')
-        self.button_info.config(text = 'Ver Más', command = self.detalles)
+        self.label_info.config(text='Selecciona una pelicula\npara ver más detalles', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black', justify='center')
+        self.input_info.config(width=5, state='readonly')
+        self.button_info.config(text='Ver Más', command=self.detalles)
         #Añadir
-        self.Add_label.config(text = 'Agregar pelicula', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Add_bott.config(text = 'Agregar', command = self.Agregar)
+        self.Add_label.config(text='Agregar pelicula', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Add_bott.config(text='Agregar', command=self.Agregar)
         #Eliminar
-        self.Elim_label.config(text = 'Eliminar pelicula', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Elim_input.config(width = 5, state = 'readonly')
-        self.Elim_bott.config(text = 'Eliminar', command = self.Eliminar)
+        self.Elim_label.config(text='Eliminar pelicula', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.Elim_input.config(width=5, state='readonly')
+        self.Elim_bott.config(text='Eliminar', command=self.Eliminar)
 
 
     def filtrar_input(self):
