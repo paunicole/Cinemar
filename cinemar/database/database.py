@@ -8,6 +8,7 @@ class DataBase:
         self.cursor = self.connection.cursor()
     
     def create_table(self, table_name, columns):
+        """Método que crea una tabla con el nombre 'table_name' y los campos 'columns'."""
         self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns})")
         self.connection.commit()
     
