@@ -10,4 +10,4 @@ try:
 
     base_datos.close()
 except:
-    messagebox.showerror('Error en la aplicación', 'Algo salio mal :()')
+    messagebox.showerror('Error en la aplicación', 'Algo salio mal :(')
