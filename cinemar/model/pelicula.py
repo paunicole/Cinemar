@@ -20,10 +20,16 @@ class Pelicula():
         return lista
     
     def mas_detalles(self, bdd, id):
-        return bdd.select('peliculas', 'director,actores,sinopsis', f'id_pelicula = {id}')
+        return bdd.select('peliculas', 'director, actores, sinopsis', f'id_pelicula = {id}')
     
-    def ver_mas(self, bdd, peli):
-        return bdd.select('peliculas', 'nombre, duracion, genero, director, actores, sinopsis', f'nombre = "{peli}"')
+    def ver_mas(self, bdd, id):
+        return bdd.select('peliculas', 'nombre, duracion, genero, director, actores, sinopsis', f'id_pelicula = {id}')
+
+    def obtener_id(self, bdd, nombre):
+        tupla = bdd.select('peliculas', 'id_pelicula', f"nombre = '{nombre}'")
+        lista = list(tupla)
+        id = lista[0]
+        return id
 
     def mostrar_nombres(self, bdd):
         lista=[]

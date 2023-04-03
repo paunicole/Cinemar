@@ -45,7 +45,7 @@ class Perfil(tk.Frame):
         self.label_telefono.config(text='Telefono', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_usuario.config(text='Usuario', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_password.config(text='Contraseña', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
-        #Entry
+        #Inputs
         self.input_insert()
         self.input_apellido.config(width=30, state="readonly")
         self.input_nombre.config(width=30, state="readonly")

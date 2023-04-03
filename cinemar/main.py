@@ -1,7 +1,7 @@
 from tkinter import messagebox
 from view.gui_main import Main
 from database import database as db
-
+    
 try:
     base_datos = db.DataBase('cinemar.db')
 

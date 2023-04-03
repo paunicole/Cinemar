@@ -3,10 +3,10 @@ from tkinter import ttk, Toplevel
 from model.pelicula import Pelicula
 
 class MasDetalles(Toplevel):
-    def __init__(self, master=None, pelicula=None, base_datos=None):
+    def __init__(self, master=None, id_pelicula=None, base_datos=None):
         Toplevel.__init__(self, master)
         self.master = master
-        self.geometry('700x480')
+        #self.geometry('700x480')
         self.config(bg='black')
         self.title('Más detalles')
         self.iconbitmap('assets\logo.ico')
@@ -14,8 +14,8 @@ class MasDetalles(Toplevel):
 
         self.bdd = base_datos
         self.pelicula = Pelicula()
-        self.pelicula_detalles = self.pelicula.ver_mas(self.bdd, pelicula)
-        
+        self.pelicula_detalles = self.pelicula.ver_mas(self.bdd, id_pelicula)
+
         """FRAMES"""
         self.frame = tk.Frame(self)
     
@@ -27,6 +27,7 @@ class MasDetalles(Toplevel):
         self.label_director = ttk.Label(self.frame)
         self.label_actor = ttk.Label(self.frame)
         self.label_sinopsis = ttk.Label(self.frame)
+        self.button_salir = ttk.Button(self.frame)
 
         self.frames_config()
         self.frames_grid()
@@ -51,6 +52,8 @@ class MasDetalles(Toplevel):
         self.label_actor.config(text='Actores: ' + self.pelicula_detalles[4], wraplength=300, foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
         self.label_sinopsis.config(text='Sinopsis: \n' + self.pelicula_detalles[5], wraplength=650, foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
 
+        self.button_salir.config(text='Salir', command=self.salir)
+
     def widgets_grid(self):
         self.imagen.grid(row=0, column=0, rowspan=5, sticky='NS')
         self.label_cabecera.grid(row=0, column=1, sticky='W')
@@ -60,4 +63,9 @@ class MasDetalles(Toplevel):
         self.label_actor.grid(row=5, column=1, pady=10, sticky='W')
         self.label_director.grid(row=7, column=1, pady=10, sticky='W') 
         self.label_sinopsis.grid(row=9, column=0, columnspan=2, pady=10, sticky='W')
+
+        self.button_salir.grid(row=10, column=1, sticky='E')
+
+    def salir(self):
+        self.destroy()
     
