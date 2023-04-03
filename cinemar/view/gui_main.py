@@ -70,8 +70,9 @@ class Main(tk.Tk):
         
         self.img_deco.config(image=self.img_cine)
         
-        self.button_login.config(text='Iniciar Sesión', command=self.login)
-        self.button_registrarse.config(text='Registrarse', command=self.registrar)
+        self.button_login.config(text='Ingresar', command=self.login)
+        self.bind('<Return>', lambda e: self.button_login.invoke())
+        self.button_registrarse.config(text='Registrate', command=self.registrar)
 
     def widgets_grid(self):
         self.cabecera.grid(padx=0, ipady=5)

@@ -11,7 +11,7 @@ class FormularioFuncion(Toplevel):
         self.geometry('358x550')
         self.config(bg = '#056595')
         self.title('Agregar Función')
-        self.iconbitmap('img\Pochoclos.ico')
+        self.iconbitmap('assets\logo.ico')
         self.protocol('WM_DELETE_WINDOW', self.Cancelar)
         self.resizable(0,0)
 
@@ -231,8 +231,6 @@ class EditFuncion(Toplevel):
 
         self.frames_grid()
         self.widgets_grid()
-
-
 
     def frames_config(self):
         self.F_cab.config(border = 15, bg = '#002B40')

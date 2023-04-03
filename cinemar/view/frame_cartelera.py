@@ -4,83 +4,53 @@ from model.pelicula import Pelicula
 from view.form_reserva import FormularioReserva
 from view.form_pelicula import FormularioPelicula
 from view.form_detalle_pelicula import MasDetalles
+from view.frame_pelicula import PeliculaCliente
+from view.frame_ubicacion import Ubicacion
 
-class PeliculaCliente(tk.Frame):
+class Cartelera(tk.Frame):
     def __init__(self, ventana_padre=None, master=None, cuenta_usuario=None, base_datos=None):
         tk.Frame.__init__(self, master)
-        self.master = master
         self.ventana_padre = ventana_padre
+        self.master = master
         self.cuenta_usuario = cuenta_usuario
         self.bdd = base_datos
         self.pelicula = Pelicula()
 
+        """NOTEBOOK"""
+        self.notebook = ttk.Notebook(self)
+
+        """FRAMES"""
+        self.p1 = PeliculaCliente(self, self.notebook, self.cuenta_usuario, self.bdd)
+        self.p2 = Ubicacion(self, self.notebook, self.cuenta_usuario, self.bdd)
+
         """WIDGETS"""
-        #Titulo
-        self.cabecera = ttk.Label(self)
+        self.label_anterior = ttk.Label(self)
+        self.button_continuar1 = ttk.Button(self)
 
-        #Pelicula
-        self.input_pelicula = ttk.Combobox(self)
-
-        #Detalles
-        self.label_info = ttk.Label(self)
-        self.button_info = ttk.Button(self)
-        
-        #Reservar
-        self.label_reservar = ttk.Label(self)
-        self.button_reservar = ttk.Button(self)
+        self.notebook_config()
+        self.notebook_grid()
 
         self.widgets_config()
         self.widgets_grid()
-        self.filtrar_input()
 
+
+    def notebook_config(self):
+        self.notebook.add(self.p1, text='Cartelera')
+        self.notebook.add(self.p2, text='Ubicaciones')
+
+    def notebook_grid(self):
+        self.notebook.grid(row=1, column=0)
 
     def widgets_config(self):
-        self.cabecera.config(text='Peliculas en cartelera', foreground='#FFFFFF', font=('Segoe UI Black', 36), background='red')
-
-        self.input_pelicula.config(width=50, state='readonly')
-
-        self.label_info.config(text='Selecciona una pelicula para ver más detalles', font=('Segoe UI Black', 18), justify='center')
-        self.button_info.config(text='Ver Más', command=self.detalles)
-
-        self.label_reservar.config(text='Selecciona una pelicula para reservar', font=('Segoe UI Black', 18), justify='center')
-        self.button_reservar.config(text='Reservar', command=self.reservar)
+        self.label_anterior.config(text='Elegí una peli y reserva tu lugar', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black', justify='center')
+        self.button_continuar1.config(text='Continuar', command=self.continuar1)
 
     def widgets_grid(self):
-        #Titulo
-        self.cabecera.grid(row=0, column=0, pady=20, ipady=10)
-        #Tabla
-        self.input_pelicula.grid(row=1, column=0, padx=20, pady=20)
-        #Detalles
-        self.label_info.grid(row=2, column=0, padx=20, pady=20)
-        self.button_info.grid(row=3, column=0, padx=5, pady=5, ipadx=5, ipady=5)
-        #Reservar
-        self.label_reservar.grid(row=4, column=0, padx=20, pady=20)
-        self.button_reservar.grid(row=5, column=0, padx=5, pady=5, ipadx=5, ipady=5)
+        self.label_anterior.grid(row=0, column=0, columnspan=8, pady=20, ipady=10)
+        self.button_continuar1.grid(row=2, column=0, ipadx=5, ipady=5, padx=20, pady=20, sticky='E')
 
-    def filtrar_input(self):
-        ids = []
-        peliculas = self.pelicula.mostrar_peliculas(self.bdd)
-        for peli in peliculas:
-            ids.append(peli[1])
-        self.input_pelicula.config(values=ids)
-
-    def reservar(self):
-        peli = self.input_pelicula.get()
-        if len(peli) > 0:
-            self.input_pelicula.set('')
-            ventana = FormularioReserva(self.ventana_padre, self.cuenta_usuario.dni, peli, self.bdd)
-            ventana.mainloop()
-        else:
-            messagebox.showerror('Error', 'Debe seleccionar una pelicula!')
-    
-    def detalles(self):
-        peli = self.input_pelicula.get()
-        if len(peli) > 0:
-            self.input_pelicula.set('')
-            ventana = MasDetalles(self.ventana_padre, peli, self.bdd)
-            ventana.mainloop()
-        else:
-            messagebox.showerror('Error', 'Debe seleccionar una pelicula!')
+    def continuar1(self):
+        self.notebook.select(self.p2)
 
 
 
@@ -111,7 +81,7 @@ class PeliculaAdministrador(tk.Frame):
 
         self.widgets_config()
         self.widgets_grid()
-        self.filtrar_input()
+        self.input_fill()
 
 
     
@@ -146,7 +116,7 @@ class PeliculaAdministrador(tk.Frame):
         self.Elim_bott.config(text = 'Eliminar', command = self.Eliminar)
 
 
-    def filtrar_input(self):
+    def input_fill(self):
         self.tabla.delete(*self.tabla.get_children())
         peliculas = self.pelicula.mostrar_peliculas(self.bdd)
         ids = []
@@ -185,7 +155,7 @@ class PeliculaAdministrador(tk.Frame):
             messagebox.showerror('Error', 'Debe seleccionar una pelicula!')
 
     def Agregar(self):
-        #self.ventana_padre.withdraw()
+        self.ventana_padre.withdraw()
         ventana = FormularioPelicula(self.ventana_padre, self.bdd)
         ventana.mainloop()
 
@@ -193,7 +163,7 @@ class PeliculaAdministrador(tk.Frame):
         peli = self.Elim_input.get()
         if len(peli) > 0:
             self.pelicula.eliminar_pelicula(self.bdd, int(peli))
-            self.filtrar_input()
+            self.input_fill()
             self.Elim_input.set('')
             messagebox.showinfo('Aviso', 'Pelicula eliminada exitosamente!')
         else:
