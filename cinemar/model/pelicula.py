@@ -1,5 +1,5 @@
 class Pelicula():
-    def __init__ (self,id=0,nombre=" ",duracion=0,genero="",tipo="",director="",actores="",sinopsis=""):
+    def __init__ (self, id=0, nombre=" ", duracion=0, genero="", tipo="", director="", actores="", sinopsis=""):
         self.id = id
         self.nombre = nombre
         self.duracion = duracion
@@ -14,7 +14,7 @@ class Pelicula():
     
     def mostrar_peliculas(self, bdd):
         lista=[]
-        pelicula = bdd.select_all('peliculas','id_pelicula,nombre,duracion,genero,tipo,director,actores,sinopsis')
+        pelicula = bdd.select_all('peliculas','id_pelicula, nombre, duracion, genero, tipo, director, actores, sinopsis')
         for i in range(len(pelicula)):
             lista.append(pelicula[i])
         return lista
@@ -22,6 +22,9 @@ class Pelicula():
     def mas_detalles(self, bdd, id):
         return bdd.select('peliculas', 'director,actores,sinopsis', f'id_pelicula = {id}')
     
+    def ver_mas(self, bdd, peli):
+        return bdd.select('peliculas', 'nombre, duracion, genero, director, actores, sinopsis', f'nombre = "{peli}"')
+
     def mostrar_nombres(self, bdd):
         lista=[]
         pelicula = bdd.select_all('peliculas WHERE id_pelicula != 0', 'id_pelicula, nombre, tipo')
