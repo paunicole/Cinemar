@@ -21,7 +21,7 @@ class Cartelera(tk.Frame):
 
         """FRAMES"""
         self.p1 = PeliculaCliente(self, self.notebook, self.cuenta_usuario, self.bdd)
-        self.p2 = Ubicacion(self, self.notebook, self.cuenta_usuario, self.bdd)
+        #self.p2 = Ubicacion(self, self.notebook, self.cuenta_usuario, self.bdd)
 
         """WIDGETS"""
         self.label_anterior = ttk.Label(self)
@@ -36,7 +36,7 @@ class Cartelera(tk.Frame):
 
     def notebook_config(self):
         self.notebook.add(self.p1, text='Cartelera')
-        self.notebook.add(self.p2, text='Ubicaciones')
+        #self.notebook.add(self.p2, text='Ubicaciones')
 
     def notebook_grid(self):
         self.notebook.grid(row=1, column=0)
@@ -50,7 +50,8 @@ class Cartelera(tk.Frame):
         self.button_continuar1.grid(row=2, column=0, ipadx=5, ipady=5, padx=20, pady=20, sticky='E')
 
     def continuar1(self):
-        self.notebook.select(self.p2)
+        pass
+        #self.notebook.select(self.p2)
 
 
 
