@@ -1,4 +1,4 @@
-from model.ticket import Ticket
+from model.reserva import Reserva
 from datetime import datetime
 
 class Descuento:
@@ -11,38 +11,25 @@ class Descuento:
         return f"{self.id} {self.dia} {self.porcentaje}"
     
     def modificar_desc(self, bdd, dia, porcentaje):
-        bdd.update('descuentos', 'porcentaje', f'"{porcentaje}"', f"dia='{dia}'")
+        bdd.update('descuento', 'porcentaje', f'"{porcentaje}"', f"dia='{dia}'")
     
-    def mostrar_desc(self, bdd):
+    def obtener_descuentos(self, bdd):
         lista = []
-        desc = bdd.select_all('descuentos', 'id_descuento,dia,porcentaje')
-        for i in range(len(desc)):
-            lista.append(desc[i])
+        descuentos = bdd.select_all('descuento', 'id_descuento, dia, porcentaje')
+        for des in descuentos:
+            lista.append(des)
         return lista
     
-    def return_porcentaje(self, bdd, dia):
-        desc = self.mostrar_desc(bdd)
+    def obtener_descuento_por_dia(self, bdd, dia):
+        descuentos = self.obtener_descuentos(bdd)
         i = 0
-        while desc[i][1] != dia:
+        while descuentos[i][1] != dia:
             i += 1
-        return desc[i][2]
+        return descuentos[i][2]
 
-    def aplica_descuento(self, bdd, dni, fecha):
+    def aplica_descuento(self, bdd, id, fecha):
         dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
-        fecha_principal = datetime.strptime(fecha, '%Y-%m-%d')
-        fecha = datetime.weekday(fecha_principal)
-        descuento = self.return_porcentaje(bdd, dias[fecha])
-        if descuento > 0:
-            cont = 0
-            reservas = Ticket().tickets_comprador(bdd, dni)
-            for res in reservas:
-                otra_fecha = datetime.strptime(res[4], '%Y-%m-%d')
-                diferencia = fecha_principal - otra_fecha
-                if 0 <= diferencia.days <= 90:
-                    cont += 1
-            if cont >= 6:
-                return descuento
-            else:
-                return 0
-        else:
-            return 0
+        numero_dia = datetime.weekday(fecha)
+        print(numero_dia)
+        descuento = self.obtener_descuento_por_dia(bdd, dias[numero_dia])
+        print(descuento)

@@ -8,17 +8,17 @@ class Sala:
         return f"{self.id} {self.cant_butacas} {self.tipo}"
     
     def modificar_sala(self,bdd,cant_butacas=0,id_sala=0):
-        bdd.update('salas', 'cant_butacas', f'{cant_butacas}', f"id_sala='{id_sala}'")
+        bdd.update('sala', 'capacidad', f'{cant_butacas}', f"id_sala='{id_sala}'")
     
     def cargar_sala(self,bdd,id,cant_butacas=0,tipo =" "):
-        bdd.insert('salas','id_sala,cant_butacas,tipo',f"{id},{cant_butacas},'{tipo}'")
+        bdd.insert('sala','id_sala, capacidad, formato',f"{id},{cant_butacas},'{tipo}'")
 
     def eliminar_sala(self,bdd,id_sala):
-        bdd.delete('salas', f'id_sala = {id_sala}')
+        bdd.delete('sala', f'id_sala = {id_sala}')
         
     def mostrar_salas(self, bdd):
         lista=[]
-        salas = bdd.select_all('salas','id_sala,cant_butacas,tipo')
+        salas = bdd.select_all('sala','id_sala, numero, capacidad, formato')
         for i in range(len(salas)):
             lista.append(salas[i])
         return lista

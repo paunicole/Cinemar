@@ -42,7 +42,7 @@ class Perfil(tk.Frame):
         self.label_nombre.config(text='Nombre', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_dni.config(text='DNI', foreground='#FFFFFF', font=('Segoe UI Black', 18), background = 'black')
         self.label_mail.config(text='Correo Electrónico', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
-        self.label_telefono.config(text='Telefono', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.label_telefono.config(text='Fecha de Nacimiento', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_usuario.config(text='Usuario', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_password.config(text='Contraseña', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         #Inputs
@@ -64,7 +64,7 @@ class Perfil(tk.Frame):
         self.input_nombre.insert(0, self.cuenta_usuario.nombre)
         self.input_dni.insert(0, self.cuenta_usuario.dni)
         self.input_email.insert(0, self.cuenta_usuario.email)
-        self.input_telefono.insert(0, self.cuenta_usuario.telefono)
+        self.input_telefono.insert(0, self.cuenta_usuario.fecha_nac)
         self.input_usuario.insert(0, self.cuenta_usuario.usuario)
         self.input_password.insert(0, self.cuenta_usuario.password)
 

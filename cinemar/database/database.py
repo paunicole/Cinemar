@@ -32,6 +32,10 @@ class DataBase:
         self.cursor.execute(f'SELECT COUNT ({column}) FROM {table_name} WHERE {condition}')
         return self.cursor.fetchone()[0]
     
+    def inner(self, table_name_1, table_name_2, columns, emp, condition):
+        self.cursor.execute(f"SELECT {columns} FROM {table_name_1} INNER JOIN {table_name_2} ON {emp} WHERE {condition}")
+        return self.cursor.fetchall()
+
     def delete(self, table_name, condition):
         self.cursor.execute(f"DELETE FROM {table_name} WHERE {condition}")
         self.connection.commit()
@@ -39,10 +43,10 @@ class DataBase:
     def delete_table(self, table_name):
         self.cursor.execute(f"DROP TABLE {table_name}")
         self.connection.commit()
-    
+
     def close(self):
         self.connection.close()
-    
+
     def __del__(self):
         self.close()
     

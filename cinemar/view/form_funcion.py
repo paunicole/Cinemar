@@ -292,7 +292,7 @@ class EditFuncion(Toplevel):
         self.button_editar.grid(row=0, column=2, padx=20, pady=10, ipadx=5, ipady=5)
 
     def filtrar_input(self):
-        funciones = self.funcion.mostrar_funciones(self.bdd)
+        funciones = self.funcion.obtener_funciones(self.bdd)
         for func in funciones:
             if func[0] == self.id_funcion:
                 self.funcion = Funcion(func[0], func[1], func[2], func[3], func[4], func[5], func[6])

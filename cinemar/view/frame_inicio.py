@@ -1,7 +1,7 @@
 import tkinter as tk
 
 class Inicio(tk.Frame):
-    def __init__(self, master = None, admin = 0):
+    def __init__(self, master=None, admin=0):
         tk.Frame.__init__(self, master)
         self.master = master
 

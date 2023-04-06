@@ -14,7 +14,7 @@ class MasDetalles(Toplevel):
 
         self.bdd = base_datos
         self.pelicula = Pelicula()
-        self.pelicula_detalles = self.pelicula.ver_mas(self.bdd, id_pelicula)
+        self.pelicula_detalles = self.pelicula.obtener_detalles(self.bdd, id_pelicula)
 
         """FRAMES"""
         self.frame = tk.Frame(self)
@@ -46,9 +46,9 @@ class MasDetalles(Toplevel):
         
         self.imagen.config(text='Imagen', foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
 
-        self.label_duracion.config(text='Duración: ' + str(self.pelicula_detalles[1]), foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
-        self.label_genero.config(text='Género: ' + self.pelicula_detalles[2], wraplength=300, foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
-        self.label_director.config(text='Director: ' + self.pelicula_detalles[3], foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
+        self.label_genero.config(text='Género: ' + self.pelicula_detalles[1], wraplength=300, foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
+        self.label_duracion.config(text='Duración: ' + str(self.pelicula_detalles[2]) + 'min', foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
+        self.label_director.config(text='Dirección: ' + self.pelicula_detalles[3], foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
         self.label_actor.config(text='Actores: ' + self.pelicula_detalles[4], wraplength=300, foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
         self.label_sinopsis.config(text='Sinopsis: \n' + self.pelicula_detalles[5], wraplength=650, foreground='#FFFFFF', font=('Segoe UI Black', 10), background='black')
 

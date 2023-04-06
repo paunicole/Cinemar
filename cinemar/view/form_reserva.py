@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, Toplevel, messagebox
 from model.funcion import Funcion
-from model.ticket import Ticket
+from model.reserva import Reserva
 from model.descuento import Descuento
+from model.pelicula import Pelicula
 
 class FormularioReserva(Toplevel):
     def __init__(self, master=None, comprador=None, pelicula=None, base_datos=None):
@@ -17,10 +18,12 @@ class FormularioReserva(Toplevel):
 
         self.bdd = base_datos
         self.comprador = comprador
-        self.pelicula = pelicula
+        self.nombre_pelicula = pelicula
         self.funcion = Funcion()
-        self.funciones_peli = self.funcion.mostrar_por_pelicula(self.bdd, self.pelicula)
-        self.ticket = Ticket()
+        self.pelicula = Pelicula()
+        self.id_pelicula = self.pelicula.obtener_id(self.bdd, self.nombre_pelicula)
+        self.funciones_peli = self.funcion.obtener_funciones_por_peli(self.bdd, self.id_pelicula)
+        self.ticket = Reserva()
         
         """FRAMES"""
         self.frame_cabecera = tk.Frame(self)
@@ -80,10 +83,10 @@ class FormularioReserva(Toplevel):
         self.label_pelicula.config(text='Pelicula', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_fecha.config(text='Fecha', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_hora.config(text='Horario', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
-        self.label_butaca.config(text='Cantidad de Butacas', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
+        self.label_butaca.config(text='Entradas', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_precio.config(text='Precio ($)', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
         self.label_descuento.config(text='Descuento (%)', foreground='#FFFFFF', font=('Segoe UI Black', 18), background='black')
-
+        
         #Inputs
         self.input_comprador.config(width=30, state='readonly')
         self.input_pelicula.config(width=30, state='readonly')
@@ -129,57 +132,49 @@ class FormularioReserva(Toplevel):
 
     def input_insert(self):
         self.input_comprador.insert(0, self.comprador)
-        self.input_pelicula.insert(0, self.pelicula)
+        self.input_pelicula.insert(0, self.nombre_pelicula)
         self.input_descuento.insert(0, '0')
         self.input_precio.insert(0, '0.00')
         self.filtrar_fecha()
     
     def seleccion_fecha(self, event):
-        opc = self.input_fecha.get()
-        self.filtrar_hora(opc)
+        selec = self.input_fecha.get()
+        self.filtrar_hora(selec)
     
     def seleccion_hora(self, event):
-        opc = self.input_hora.get()
-        self.filtrar_butaca(self.input_fecha.get(), opc)
+        selec = self.input_hora.get()
+        self.filtrar_butaca(self.input_fecha.get(), selec)
     
     def seleccion_butaca(self, event):
-        opc = self.input_butaca.get()
+        selec = self.input_butaca.get()
         self.filtrar_descuento()
-        self.filtrar_precio(self.input_fecha.get(), self.input_hora.get(), opc)
+        self.filtrar_precio(selec)
 
     def filtrar_fecha(self):
         """Método que filtra una lista de todas las fechas de las funciones de una pelicula especifica, sin repetir."""
         fechas = []
-        for i in range(len(self.funciones_peli)):
-            if self.funciones_peli[i][4] not in fechas:
-                fechas.append(self.funciones_peli[i][4])
+        for funcion in self.funciones_peli:
+            if funcion[1] not in fechas:
+                fechas.append(funcion[1])
         self.input_fecha.config(values=fechas)
     
     def filtrar_hora(self, fecha):
         """Método que filtra una lista de todas las horas de las funciones de una pelicula especifica, sin repetir."""
         horarios = []
-        for i in range(len(self.funciones_peli)):
-            if self.funciones_peli[i][4] == fecha:
-                horarios.append(self.funciones_peli[i][5])
+        for funcion in self.funciones_peli:
+            if funcion[1] == fecha:
+                horarios.append(funcion[2])
         self.input_hora.config(values=horarios)
     
-    def filtrar_butaca(self, fecha, hora):
+    def filtrar_butaca(self):
         """Método que filtra una lista de todas las butacas de la funcion de la fecha y hora pasadas por parametro."""
-        butacas = []
-        for i in range(len(self.funciones_peli)):
-            if self.funciones_peli[i][4] == fecha and self.funciones_peli[i][5] == hora:
-                cant = self.funciones_peli[i][3]
-        for i in range(1, cant+1):
-            butacas.append(i)
+        butacas = [1, 2, 3, 4, 5, 6]
         self.input_butaca.config(values=butacas)
 
-    def filtrar_precio(self, fecha, hora, butac):
+    def filtrar_precio(self, butacas):
         """Método que filtra el precio total de la funcion de la fecha y hora pasadas por parametro,
         teniendo en cuenta al cantidad de butacas compradas."""
-        i = 0
-        while self.funciones_peli[i][4] != fecha and self.funciones_peli[i][5] != hora:
-            i += 1
-        precio = int(self.funciones_peli[i][6]) * int(butac)
+        precio = 500 * int(butacas)
         desc = int(self.input_descuento.get())
         precio -= ((desc/100) * precio)
         self.input_precio.config(state='normal')
@@ -213,7 +208,7 @@ class FormularioReserva(Toplevel):
                 i += 1
             funcion = self.funciones_peli[i]
             self.funcion.modificar_funcion(self.bdd, funcion[0], butacas_libres=int(funcion[3]) - int(butac))
-            self.ticket = Ticket(None, comp, peli, butac, fecha, hora, precio)
+            self.ticket = Reserva(None, comp, peli, butac, fecha, hora, precio)
             self.ticket.cargar_ticket(self.bdd)
             messagebox.showinfo('Aviso', 'Reserva realizada exitosamente!')
             self.master.frame_reserva.filtrar_tickets()

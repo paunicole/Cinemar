@@ -66,6 +66,7 @@ class Main(tk.Tk):
         self.label_registro.config(text='¿Todavia no tenés una cuenta? Create una', foreground='#FFFFFF', font=('Segoe UI Black', 12), background='black')  
         
         self.entry_usuario.config(width=20)
+        self.entry_usuario.focus()
         self.entry_password.config(width=20, show='*')
         
         self.img_deco.config(image=self.img_cine)
@@ -98,7 +99,7 @@ class Main(tk.Tk):
                 self.entry_password.delete(0, 'end')
                 self.withdraw()
 
-                if self.cuenta.admin == 1:
+                if self.cuenta.admin == 'cliente':
                     ventana = Cliente(self, self.cuenta, self.bdd)
                 else:
                     ventana = Administrador(self, self.cuenta, self.bdd)

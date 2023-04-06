@@ -38,22 +38,18 @@ class FuncionAdministrador(tk.Frame):
 
 
     def tabla_config(self):
-        self.tabla.config(columns = (1,2,3,4,5,6))
+        self.tabla.config(columns = (1,2,3,4))
         self.tabla.column('#0', width=70, anchor='center')
         self.tabla.column('#1', width=70, anchor='center')
         self.tabla.column('#2', width=180, anchor='center')
-        self.tabla.column('#3', width=100, anchor='center')
-        self.tabla.column('#4', width=90, anchor='center')
-        self.tabla.column('#5', width=70, anchor='center')
-        self.tabla.column('#6', width=70, anchor='center')
+        self.tabla.column('#3', width=90, anchor='center')
+        self.tabla.column('#4', width=70, anchor='center')
 
-        self.tabla.heading('#0', text='ID Función', anchor='center')
-        self.tabla.heading('#1', text='Sala', anchor='center')
+        self.tabla.heading('#0', text='ID', anchor='center')
+        self.tabla.heading('#1', text='N° Sala', anchor='center')
         self.tabla.heading('#2', text='Pelicula', anchor='center')
-        self.tabla.heading('#3', text='Butacas Libres', anchor='center')
-        self.tabla.heading('#4', text='Fecha', anchor='center')
-        self.tabla.heading('#5', text='Horario', anchor='center')
-        self.tabla.heading('#6', text='Precio', anchor='center')
+        self.tabla.heading('#3', text='Fecha', anchor='center')
+        self.tabla.heading('#4', text='Horario', anchor='center')
 
     def widgets_config(self):
         #Titulo
@@ -80,7 +76,7 @@ class FuncionAdministrador(tk.Frame):
         #Titulo
         self.cabecera_principal.grid(row=0, column=0, columnspan=8, pady=20, ipady=10)
         #Tabla
-        self.tabla.grid(row=1, column=0, rowspan=5, columnspan=5, padx=20, pady = (0, 20))
+        self.tabla.grid(row=1, column=0, rowspan=5, columnspan=5, padx=20, pady=(0, 20))
         #Editar
         self.label_editar.grid(row=2, column=5, columnspan=3)
         self.input_editar.grid(row=3, column=5, columnspan=2)
@@ -95,11 +91,11 @@ class FuncionAdministrador(tk.Frame):
 
     def filtrar_input(self):
         self.tabla.delete(*self.tabla.get_children())
-        funciones = self.funcion.mostrar_funciones(self.bdd)
+        funciones = self.funcion.obtener_funciones(self.bdd)
         ids = []
 
         for func in funciones:
-            self.tabla.insert('', 'end', text=f'{func[0]}', values=(func[1], func[2], func[3], func[4], func[5], func[6]))
+            self.tabla.insert('', 'end', text=f'{func[0]}', values=(func[1], func[2], func[3], func[4]))
             ids.append(func[0])
         
         self.input_editar.config(values=ids)

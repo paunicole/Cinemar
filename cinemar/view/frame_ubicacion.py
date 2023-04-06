@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import IntVar, ttk
-from model.ticket import Ticket
+from model.reserva import Reserva
 from model.funcion import Funcion
 from model.butaca import Butaca
 
@@ -11,7 +11,7 @@ class Ubicacion(tk.Frame):
         self.ventana_padre = ventana_padre
         self.cuenta_usuario = cuenta_usuario
         self.bdd = base_datos
-        self.reserva = Ticket()
+        self.reserva = Reserva()
         self.reserva = self.reserva.tickets_comprador(self.bdd, self.cuenta_usuario.dni)
         self.reserva = self.reserva[-1]
         self.funcion = Funcion()

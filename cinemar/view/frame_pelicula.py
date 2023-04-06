@@ -58,10 +58,7 @@ class PeliculaCliente(tk.Frame):
         self.button_reservar.grid(row=5, column=0, padx=5, pady=5, ipadx=5, ipady=5)
 
     def filtrar_input(self):
-        ids = []
-        peliculas = self.pelicula.mostrar_peliculas(self.bdd)
-        for peli in peliculas:
-            ids.append(peli[1])
+        ids = self.pelicula.obtener_nombres(self.bdd)
         self.input_pelicula.config(values=ids)
 
     def reservar(self):
@@ -115,18 +112,16 @@ class PeliculaAdministrador(tk.Frame):
 
 
     def tabla_config(self):
-        self.tabla.config(columns = (1, 2, 3, 4))
+        self.tabla.config(columns = (1, 2, 3))
         self.tabla.column('#0', width=70, anchor='center')
         self.tabla.column('#1', width=180, anchor='center')
-        self.tabla.column('#2', width=70, anchor='center')
-        self.tabla.column('#3', width=100, anchor='center')
-        self.tabla.column('#4', width=70, anchor='center')
+        self.tabla.column('#2', width=180, anchor='center')
+        self.tabla.column('#3', width=70, anchor='center')
 
         self.tabla.heading('#0', text='ID Pelicula', anchor='center')
         self.tabla.heading('#1', text='Nombre', anchor='center')
-        self.tabla.heading('#2', text='Duracion', anchor='center')
-        self.tabla.heading('#3', text='Genero', anchor='center')
-        self.tabla.heading('#4', text='Tipo', anchor='center')
+        self.tabla.heading('#2', text='Genero', anchor='center')
+        self.tabla.heading('#3', text='Duracion', anchor='center')
 
     def widgets_config(self):
         #Titulo
@@ -148,11 +143,11 @@ class PeliculaAdministrador(tk.Frame):
 
     def filtrar_input(self):
         self.tabla.delete(*self.tabla.get_children())
-        peliculas = self.pelicula.mostrar_peliculas(self.bdd)
+        peliculas = self.pelicula.obtener_peliculas(self.bdd)
         ids = []
         
         for peli in peliculas:
-            self.tabla.insert('', 'end', text=f'{peli[0]}', values=(peli[1], peli[2], peli[3], peli[4]))
+            self.tabla.insert('', 'end', text=f'{peli[0]}', values=(peli[1], peli[2], peli[3]))
             ids.append(peli[0])
         
         self.input_info.config(values = ids)
@@ -177,7 +172,6 @@ class PeliculaAdministrador(tk.Frame):
 
     def detalles(self):
         peli = self.input_info.get()
-        print(peli)
         if len(peli) > 0:
             self.input_info.set('')
             ventana = MasDetalles(self.ventana_padre, peli, self.bdd)

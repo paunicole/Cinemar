@@ -2,8 +2,8 @@ from model.persona import Persona
 import csv
 
 class Cuenta(Persona):
-    def __init__(self, id=None, apellido='', nombre='', dni='', email='', telefono=0,  usuario ='', password='', admin=1):
-        Persona.__init__(self, apellido, nombre, dni, email, telefono, id)
+    def __init__(self, id=None, apellido='', nombre='', dni='', email='', fecha_nac='', usuario ='', password='', admin=1):
+        Persona.__init__(self, apellido, nombre, dni, email, fecha_nac, id)
         self.usuario = usuario
         self.password = password
         self.admin = admin
@@ -35,10 +35,10 @@ class Cuenta(Persona):
             return 'Registro fallido.' + mensaje
     
     def iniciar_sesion(self, bdd, username, password):
-        user = bdd.select('cuentas', 'id_cuenta, usuario, password, admin', f'usuario="{username}"')
+        user = bdd.select('usuario', 'id_usuario, username, password, tipo', f'username="{username}"')
         if user != None:
             if user[2] == password:
-                cuenta = bdd.select('personas', 'id_persona, apellido, nombre, dni, email, telefono', f'id_persona = "{user[0]}"') + user
+                cuenta = bdd.select('usuario', 'id_usuario, apellido, nombre, dni, email, fecha_nacimiento', f'id_usuario = "{user[0]}"') + user
                 Cuenta.__init__(self, cuenta[0], cuenta[1], cuenta[2], cuenta[3], cuenta[4], cuenta[5], cuenta[7], cuenta[8], cuenta[9])
                 return 'Inicio de sesión exitoso!'
             else:
@@ -93,6 +93,14 @@ class Cuenta(Persona):
             elif clave == 'admin':
                 bdd.update('cuentas', 'admin', f'"{valor}"', f'id_cuenta = {id_cuenta}')
     
+    def obtener_id(self, bdd, dni):
+        id = bdd.select('usuario', 'id_usuario', f'dni = "{dni}"')
+        return id[0]
+
+    def obtener_usuario_por_id(self, bdd, id):
+        usuario = bdd.select('usuario', 'id_usuario, nombre, apellido, email, dni, fecha_nacimiento, username, password, tipo', f'id_usuario = {id}')
+        return usuario
+
     def __str__(self):
         if self.admin == 1:
             cuenta = '\nCuenta: Cliente'
