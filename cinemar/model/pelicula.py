@@ -13,9 +13,12 @@ class Pelicula():
         lista = []
         peliculas = bdd.select_all('pelicula', 'id_pelicula, nombre, genero, duracion, direccion, reparto, sinopsis, id_tipo_pelicula, id_clasificacion')
         for peli in peliculas:
-            lista.append(peli[0])
+            lista.append(peli)
         return lista
     
+    def obtener_pelicula(self, bdd, id):
+        return bdd.select('pelicula', 'id_pelicula, nombre, genero, duracion, direccion, reparto, sinopsis, id_tipo_pelicula', f'id_pelicula = {id}')
+
     def obtener_nombres(self, bdd):
         lista = []
         peliculas = bdd.select_all('pelicula', 'nombre')

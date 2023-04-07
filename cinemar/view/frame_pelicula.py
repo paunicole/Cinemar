@@ -140,7 +140,6 @@ class PeliculaAdministrador(tk.Frame):
         self.input_eliminar.config(width=5, state='readonly')
         self.button_eliminar.config(text='Eliminar', command=self.eliminar)
 
-
     def filtrar_input(self):
         self.tabla.delete(*self.tabla.get_children())
         peliculas = self.pelicula.obtener_peliculas(self.bdd)

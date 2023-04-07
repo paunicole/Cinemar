@@ -77,7 +77,7 @@ class DescuentoAdministrador(tk.Frame):
     def input_fill(self):
         self.tabla.delete(*self.tabla.get_children())
 
-        descuentos = self.descuento.mostrar_desc(self.bdd)
+        descuentos = self.descuento.obtener_descuentos(self.bdd)
         dias = []
         for desc in descuentos:
             self.tabla.insert('', 'end', text=f'{desc[0]}', values=(desc[1], desc[2]))
